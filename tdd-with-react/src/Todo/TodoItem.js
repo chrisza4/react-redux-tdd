@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-const TodoItem = (props) => {
+export const TodoItem = (props) => {
   const className = classNames({
     completed: props.item.isCompleted,
     editing: props.editing
@@ -15,20 +15,22 @@ const TodoItem = (props) => {
           checked={props.item.isCompleted}
           onChange={props.onToggle}
         />
-        <label onDoubleClick={() => { }}>
+        <label onDoubleClick={() => props.onToggleEditing(props.item._id)}>
           {props.item.title}
         </label>
         <button className="destroy" onClick={props.onDestroy} />
       </div>
       <input
         className="edit"
+        autoFocus
       />
     </li>
   )
 }
 
 TodoItem.propTypes = {
-  item: React.PropTypes.object
+  item: React.PropTypes.object,
+  onToggleEditing: React.PropTypes.func
 }
 
 export default TodoItem

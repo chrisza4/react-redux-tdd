@@ -9,13 +9,14 @@ export class TodoBoard extends React.Component {
     inputValue: React.PropTypes.string,
     items: React.PropTypes.array,
     onKeyDownInput: React.PropTypes.func,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    editingItemId: React.PropTypes.string
   }
 
   renderItems = () => {
     if (!this.props.items) return null
     return this.props.items.map(item => (
-      <TodoItem key={item._id} item={item} />
+      <TodoItem key={item._id} item={item} editing={this.props.editingItemId === item._id} />
     ))
   }
 
@@ -54,7 +55,8 @@ export default class TodoBoardContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      inputValue: ''
+      inputValue: '',
+      editingItemId: null
     }
   }
 
@@ -81,6 +83,7 @@ export default class TodoBoardContainer extends React.Component {
         onAddItem={this.props.onAddItem}
         onKeyDownInput={this.onKeyDownInput}
         onInputChange={this.onInputChange}
+        editingItemId={this.state.editingItemId}
       />
     )
   }

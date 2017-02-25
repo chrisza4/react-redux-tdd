@@ -31,6 +31,12 @@ storiesOf('TodoBoard', module)
     ]
     return <TodoBoard items={items} />
   })
-  .add('Edit item', () => {
-
+  .add('Editing item', () => {
+    const items = [
+      { _id: 'todo1', title: 'Do this', isCompleted: false },
+      { _id: 'todo2', title: 'Do this', isCompleted: true },
+      { _id: 'todo3', title: 'Do this', isCompleted: true },
+      { _id: 'todo4', title: 'Do this', isCompleted: false },
+    ]
+    return <TodoBoard items={items} editingItemId='todo2'/>
   })

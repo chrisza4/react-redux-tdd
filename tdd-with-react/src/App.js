@@ -24,12 +24,19 @@ class App extends Component {
     })
   }
 
+  onEditItem = (id, title) => {
+    this.setState({
+      items: this.state.items.map(item => item._id === id ? { ...item, title } : item)
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <TodoBoard
           items={this.state.items}
           onAddItem={this.onAddItem}
+          onEditItem={this.onEditItem}
         />
       </div>
     );
