@@ -9,11 +9,13 @@ export class TodoBoard extends React.Component {
     inputValue: React.PropTypes.string,
     items: React.PropTypes.array,
     editingItemId: React.PropTypes.string,
+    onInputChange: React.PropTypes.func,
     onKeyDownInput: React.PropTypes.func,
     onChange: React.PropTypes.func,
     onToggleEdit: React.PropTypes.func,
-    onCancelEdit: React.PropTypes.func,
-    onToggleItemCompleted: React.PropTypes.func
+    onCloseEdit: React.PropTypes.func,
+    onToggleItemCompleted: React.PropTypes.func,
+    onEditCompleted: React.PropTypes.func
   }
 
   renderItems = () => {
@@ -25,6 +27,7 @@ export class TodoBoard extends React.Component {
         editing={this.props.editingItemId === item._id}
         onToggleEditing={this.props.onToggleEdit}
         onToggleItemCompleted={this.props.onToggleItemCompleted}
+        onEditCompleted={this.props.onEditCompleted}
       />
     ))
   }
@@ -41,7 +44,7 @@ export class TodoBoard extends React.Component {
             autoFocus={true}
             onKeyDown={this.props.onKeyDownInput}
             onChange={this.props.onInputChange}
-            onClick={this.props.onCancelEdit}
+            onClick={this.props.onCloseEdit}
           />
           <ul className='todo-list'>
             {this.renderItems()}
@@ -60,6 +63,8 @@ export default class TodoBoardContainer extends React.Component {
       isCompleted: React.PropTypes.bool
     })),
     onAddItem: React.PropTypes.func,
+    onToggleItemCompleted: React.PropTypes.func,
+    onEditItem: React.PropTypes.func
   }
 
   constructor (props) {
@@ -91,7 +96,12 @@ export default class TodoBoardContainer extends React.Component {
     })
   }
 
-  onCancelEdit = () => this.setState({ editingItemId: null })
+  onCloseEdit = () => this.setState({ editingItemId: null })
+
+  onEditItem = (id, title) => {
+    this.onCloseEdit()
+    this.props.onEditItem(id, title)
+  }
 
   render () {
     return (
@@ -103,8 +113,9 @@ export default class TodoBoardContainer extends React.Component {
         onInputChange={this.onInputChange}
         editingItemId={this.state.editingItemId}
         onToggleEdit={this.onToggleEditById}
-        onCancelEdit={this.onCancelEdit}
+        onCloseEdit={this.onCloseEdit}
         onToggleItemCompleted={this.props.onToggleItemCompleted}
+        onEditCompleted={this.onEditItem}
       />
     )
   }

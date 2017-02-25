@@ -1,3 +1,6 @@
 module.exports = {
-  "extends": "react-app"
+  "extends": "react-app",
+  "rules": {
+    "react/prop-types": "error"
+  }
 }

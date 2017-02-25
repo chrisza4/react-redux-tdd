@@ -1,12 +1,67 @@
 import React from 'react'
 import classNames from 'classnames'
 
-export class TodoItem extends React.Component {
+const propTypes = {
+  item: React.PropTypes.object,
+  currentEditTitle: React.PropTypes.string,
+  editing: React.PropTypes.bool,
+  onToggleEditing: React.PropTypes.func,
+  onToggleItemCompleted: React.PropTypes.func,
+  onEditCompleted: React.PropTypes.func,
+  onDestroy: React.PropTypes.func
+}
+
+export default class TodoItemContainer extends React.Component {
+
+  static propTypes = propTypes
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      editingTitle: props.item.title
+    }
+  }
 
   onKeyDownEdit = (e) => {
     if (e.keyCode === 13) {
-      this.props.onEditCompleted(this.props.item._id, this.refs.editbox.value)
+      this.props.onEditCompleted(this.props.item._id, this.state.editingTitle)
     }
+  }
+
+  onChange = (e) => this.setState({ editingTitle: e.target.value })
+
+  render () {
+    return (
+      <TodoItem
+        {...this.props}
+        currentEditTitle={this.state.editingTitle}
+        onChange={this.onChange}
+        onKeyDownEdit={this.onKeyDownEdit}
+      />
+    )
+  }
+}
+
+export class TodoItem extends React.Component {
+
+  static propTypes = {
+    ...propTypes,
+    onChange: React.PropTypes.func,
+    onKeyDownEdit: React.PropTypes.func,
+  }
+
+  renderInput () {
+    if (!this.props.editing) return null
+    return (
+      <input
+        className="edit"
+        ref='editbox'
+        autoFocus
+        onKeyDown={this.props.onKeyDownEdit}
+        onChange={this.props.onChange}
+        value={this.props.currentEditTitle}
+      />
+    )
   }
 
   render () {
@@ -28,22 +83,8 @@ export class TodoItem extends React.Component {
           </label>
           <button className="destroy" onClick={this.props.onDestroy} />
         </div>
-        <input
-          className="edit"
-          ref='editbox'
-          autoFocus
-          onKeyDown={this.onKeyDownEdit}
-        />
+        {this.renderInput()}
       </li>
     )
   }
 }
-
-TodoItem.propTypes = {
-  item: React.PropTypes.object,
-  onToggleEditing: React.PropTypes.func,
-  onToggleItemCompleted: React.PropTypes.func,
-  onEditCompleted: React.PropTypes.func,
-}
-
-export default TodoItem
