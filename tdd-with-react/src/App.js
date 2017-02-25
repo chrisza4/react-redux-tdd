@@ -30,6 +30,14 @@ class App extends Component {
     })
   }
 
+  onToggleItemCompleted = (id) => {
+    this.setState({
+      items: this.state.items.map(item =>
+        item._id === id ? { ...item, isCompleted: !item.isCompleted } : item
+      )
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -37,6 +45,7 @@ class App extends Component {
           items={this.state.items}
           onAddItem={this.onAddItem}
           onEditItem={this.onEditItem}
+          onToggleItemCompleted={this.onToggleItemCompleted}
         />
       </div>
     );

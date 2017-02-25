@@ -8,15 +8,24 @@ export class TodoBoard extends React.Component {
   static propTypes = {
     inputValue: React.PropTypes.string,
     items: React.PropTypes.array,
+    editingItemId: React.PropTypes.string,
     onKeyDownInput: React.PropTypes.func,
     onChange: React.PropTypes.func,
-    editingItemId: React.PropTypes.string
+    onToggleEdit: React.PropTypes.func,
+    onCancelEdit: React.PropTypes.func,
+    onToggleItemCompleted: React.PropTypes.func
   }
 
   renderItems = () => {
     if (!this.props.items) return null
     return this.props.items.map(item => (
-      <TodoItem key={item._id} item={item} editing={this.props.editingItemId === item._id} />
+      <TodoItem
+        key={item._id}
+        item={item}
+        editing={this.props.editingItemId === item._id}
+        onToggleEditing={this.props.onToggleEdit}
+        onToggleItemCompleted={this.props.onToggleItemCompleted}
+      />
     ))
   }
 
@@ -32,6 +41,7 @@ export class TodoBoard extends React.Component {
             autoFocus={true}
             onKeyDown={this.props.onKeyDownInput}
             onChange={this.props.onInputChange}
+            onClick={this.props.onCancelEdit}
           />
           <ul className='todo-list'>
             {this.renderItems()}
@@ -75,6 +85,14 @@ export default class TodoBoardContainer extends React.Component {
     }
   }
 
+  onToggleEditById = (itemId) => {
+    this.setState({
+      editingItemId: itemId
+    })
+  }
+
+  onCancelEdit = () => this.setState({ editingItemId: null })
+
   render () {
     return (
       <TodoBoard
@@ -84,6 +102,9 @@ export default class TodoBoardContainer extends React.Component {
         onKeyDownInput={this.onKeyDownInput}
         onInputChange={this.onInputChange}
         editingItemId={this.state.editingItemId}
+        onToggleEdit={this.onToggleEditById}
+        onCancelEdit={this.onCancelEdit}
+        onToggleItemCompleted={this.props.onToggleItemCompleted}
       />
     )
   }
