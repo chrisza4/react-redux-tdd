@@ -1,7 +1,7 @@
 import { action, storiesOf } from '@kadira/storybook';
 
 import React from 'react'
-import { TodoItem } from './TodoItem'
+import TodoItem from './TodoItem'
 
 const mockItem = {
   _id: 'id1', title: 'some todo', isCompleted: false
@@ -20,6 +20,7 @@ const renderTodoItemWithProps = (props) => {
           onToggleEditing={action('toggleEdit')}
           onToggleItemCompleted={action('toggleCompleted')}
           onEditCompleted={action('editCompleted')}
+          onDestroy={action('delete')}
         />
       </ul>
     </div>

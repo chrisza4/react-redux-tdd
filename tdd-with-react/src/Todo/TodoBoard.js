@@ -3,58 +3,6 @@ import './TodoBoard.css'
 import React from 'react'
 import TodoItem from './TodoItem'
 
-export class TodoBoard extends React.Component {
-
-  static propTypes = {
-    inputValue: React.PropTypes.string,
-    items: React.PropTypes.array,
-    editingItemId: React.PropTypes.string,
-    onInputChange: React.PropTypes.func,
-    onKeyDownInput: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    onToggleEdit: React.PropTypes.func,
-    onCloseEdit: React.PropTypes.func,
-    onToggleItemCompleted: React.PropTypes.func,
-    onEditCompleted: React.PropTypes.func
-  }
-
-  renderItems = () => {
-    if (!this.props.items) return null
-    return this.props.items.map(item => (
-      <TodoItem
-        key={item._id}
-        item={item}
-        editing={this.props.editingItemId === item._id}
-        onToggleEditing={this.props.onToggleEdit}
-        onToggleItemCompleted={this.props.onToggleItemCompleted}
-        onEditCompleted={this.props.onEditCompleted}
-      />
-    ))
-  }
-
-  render () {
-    return (
-      <div className='todoapp'>
-        <header className="header">
-          <h1>todos</h1>
-          <input
-            className="new-todo"
-            placeholder="What needs to be done?"
-            value={this.props.inputValue}
-            autoFocus={true}
-            onKeyDown={this.props.onKeyDownInput}
-            onChange={this.props.onInputChange}
-            onClick={this.props.onCloseEdit}
-          />
-          <ul className='todo-list'>
-            {this.renderItems()}
-          </ul>
-        </header>
-      </div>
-    )
-  }
-}
-
 export default class TodoBoardContainer extends React.Component {
   static propTypes = {
     items: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -64,7 +12,8 @@ export default class TodoBoardContainer extends React.Component {
     })),
     onAddItem: React.PropTypes.func,
     onToggleItemCompleted: React.PropTypes.func,
-    onEditItem: React.PropTypes.func
+    onEditItem: React.PropTypes.func,
+    onDestroy: React.PropTypes.func,
   }
 
   constructor (props) {
@@ -116,7 +65,62 @@ export default class TodoBoardContainer extends React.Component {
         onCloseEdit={this.onCloseEdit}
         onToggleItemCompleted={this.props.onToggleItemCompleted}
         onEditCompleted={this.onEditItem}
+        onDestroy={this.props.onDestroy}
       />
+    )
+  }
+}
+
+export class TodoBoard extends React.Component {
+
+  static propTypes = {
+    inputValue: React.PropTypes.string,
+    items: React.PropTypes.array,
+    editingItemId: React.PropTypes.string,
+    onInputChange: React.PropTypes.func,
+    onKeyDownInput: React.PropTypes.func,
+    onChange: React.PropTypes.func,
+    onToggleEdit: React.PropTypes.func,
+    onCloseEdit: React.PropTypes.func,
+    onToggleItemCompleted: React.PropTypes.func,
+    onEditCompleted: React.PropTypes.func,
+    onDestroy: React.PropTypes.func
+  }
+
+  renderItems = () => {
+    if (!this.props.items) return null
+    return this.props.items.map(item => (
+      <TodoItem
+        key={item._id}
+        item={item}
+        editing={this.props.editingItemId === item._id}
+        onToggleEditing={this.props.onToggleEdit}
+        onToggleItemCompleted={this.props.onToggleItemCompleted}
+        onEditCompleted={this.props.onEditCompleted}
+        onDestroy={this.props.onDestroy}
+      />
+    ))
+  }
+
+  render () {
+    return (
+      <div className='todoapp'>
+        <header className="header">
+          <h1>todos</h1>
+          <input
+            className="new-todo"
+            placeholder="What needs to be done?"
+            value={this.props.inputValue}
+            autoFocus={true}
+            onKeyDown={this.props.onKeyDownInput}
+            onChange={this.props.onInputChange}
+            onClick={this.props.onCloseEdit}
+          />
+          <ul className='todo-list'>
+            {this.renderItems()}
+          </ul>
+        </header>
+      </div>
     )
   }
 }

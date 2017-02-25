@@ -38,6 +38,12 @@ class App extends Component {
     })
   }
 
+  onDestroy = (id) => {
+    this.setState({
+      items: this.state.items.filter(item => item._id !== id)
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -46,6 +52,7 @@ class App extends Component {
           onAddItem={this.onAddItem}
           onEditItem={this.onEditItem}
           onToggleItemCompleted={this.onToggleItemCompleted}
+          onDestroy={this.onDestroy}
         />
       </div>
     );

@@ -30,6 +30,8 @@ export default class TodoItemContainer extends React.Component {
 
   onChange = (e) => this.setState({ editingTitle: e.target.value })
 
+  onDestroy = () => this.props.onDestroy(this.props.item._id)
+
   render () {
     return (
       <TodoItem
@@ -37,6 +39,7 @@ export default class TodoItemContainer extends React.Component {
         currentEditTitle={this.state.editingTitle}
         onChange={this.onChange}
         onKeyDownEdit={this.onKeyDownEdit}
+        onDestroy={this.onDestroy}
       />
     )
   }
@@ -69,6 +72,7 @@ export class TodoItem extends React.Component {
       completed: this.props.item.isCompleted,
       editing: this.props.editing,
     })
+
     return (
       <li className={className}>
         <div className="view">
