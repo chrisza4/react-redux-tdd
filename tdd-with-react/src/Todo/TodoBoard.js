@@ -9,15 +9,39 @@ export default class TodoBoard extends React.Component {
       _id: React.PropTypes.string,
       title: React.PropTypes.string,
       isCompleted: React.PropTypes.bool
-    }))
+    })),
+    onAddItem: React.PropTypes.func,
+  }
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      inputValue: ''
+    }
+  }
+
+  onInputChange = (e) => {
+    this.setState({
+      inputValue: e.target.value
+    })
+  }
+
+  onKeyDownInput = (e) => {
+    if (e.keyCode === 13) {
+      this.props.onAddItem(this.state.inputValue)
+      this.setState({
+        inputValue: ''
+      })
+    }
   }
 
   renderItems = () => {
     if (!this.props.items) return null
     return this.props.items.map(item => (
-      <TodoItem item={item} />
+      <TodoItem key={item._id} item={item} />
     ))
   }
+
 
   render () {
     return (
@@ -27,8 +51,10 @@ export default class TodoBoard extends React.Component {
           <input
             className="new-todo"
             placeholder="What needs to be done?"
-            value={''}
+            value={this.state.inputValue}
             autoFocus={true}
+            onKeyDown={this.onKeyDownInput}
+            onChange={this.onInputChange}
           />
           <ul className='todo-list'>
             {this.renderItems()}

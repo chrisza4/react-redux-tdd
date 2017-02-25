@@ -1,10 +1,13 @@
+import { action, storiesOf } from '@kadira/storybook';
+
 import React from 'react'
 import TodoBoard from './TodoBoard'
-import { storiesOf } from '@kadira/storybook';
 
 storiesOf('TodoBoard', module)
   .add('Without any items', () => (
-    <TodoBoard />
+    <TodoBoard
+      onAddItem={action('Add item')}
+    />
   ))
   .add('With one incompleted items', () => {
     const items = [
