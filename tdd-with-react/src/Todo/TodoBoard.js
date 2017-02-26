@@ -1,6 +1,7 @@
 import './TodoBoard.css'
 
 import React from 'react'
+import TodoFooter from './TodoFooter'
 import TodoItem from './TodoItem'
 
 export default class TodoBoardContainer extends React.Component {
@@ -77,6 +78,7 @@ export class TodoBoard extends React.Component {
     inputValue: React.PropTypes.string,
     items: React.PropTypes.array,
     editingItemId: React.PropTypes.string,
+    filter: React.PropTypes.oneOf([ 'active', 'completed', 'all' ]),
     onInputChange: React.PropTypes.func,
     onKeyDownInput: React.PropTypes.func,
     onChange: React.PropTypes.func,
@@ -119,6 +121,7 @@ export class TodoBoard extends React.Component {
           <ul className='todo-list'>
             {this.renderItems()}
           </ul>
+          <TodoFooter count={this.props.items.length} filter={this.props.filter} />
         </header>
       </div>
     )
