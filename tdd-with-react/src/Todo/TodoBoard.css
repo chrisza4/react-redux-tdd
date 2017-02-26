@@ -285,7 +285,7 @@ label[for='toggle-all'] {
 	display: inline;
 }
 
-.filters li a {
+.filters li span {
 	color: inherit;
 	margin: 3px;
 	padding: 3px 7px;
@@ -294,11 +294,12 @@ label[for='toggle-all'] {
 	border-radius: 3px;
 }
 
-.filters li a:hover {
+.filters li span:hover {
 	border-color: rgba(175, 47, 47, 0.1);
+	cursor: pointer;
 }
 
-.filters li a.selected {
+.filters li span.selected {
 	border-color: rgba(175, 47, 47, 0.2);
 }
 
