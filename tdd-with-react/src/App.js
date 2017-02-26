@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 import TodoBoard from './Todo/TodoBoard'
 import Uuid from 'uuid'
+import dataSet from './dataSource'
 
 const createItem = (title) => (
   { _id: Uuid.v4(), title, isCompleted: false }
@@ -14,7 +15,7 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      items: [ ]
+      items: dataSet
     }
   }
 
