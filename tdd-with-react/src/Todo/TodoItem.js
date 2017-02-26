@@ -67,6 +67,16 @@ export class TodoItem extends React.Component {
     )
   }
 
+  renderCompleted () {
+    if (!this.props.item.isCompleted) return null
+    const dateString = this.props.item.completed ? this.props.item.completed.toString() : null
+    return (
+      <div className='completed-date'>
+        Complete on {dateString}
+      </div>
+    )
+  }
+
   render () {
     const className = classNames({
       completed: this.props.item.isCompleted,
@@ -87,6 +97,7 @@ export class TodoItem extends React.Component {
           </label>
           <button className="destroy" onClick={this.props.onDestroy} />
         </div>
+        {this.renderCompleted()}
         {this.renderInput()}
       </li>
     )

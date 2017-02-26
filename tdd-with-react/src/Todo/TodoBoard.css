@@ -337,6 +337,14 @@ html .clear-completed:active {
 	text-decoration: underline;
 }
 
+.completed-date {
+	position: absolute;
+	font-size: 10px;
+	left: 60px;
+	top: 40px;
+	font-weight: 100;
+}
+
 /*
 	Hack to remove background from Mobile Safari.
 	Can't use it globally since it destroys checkboxes in Firefox

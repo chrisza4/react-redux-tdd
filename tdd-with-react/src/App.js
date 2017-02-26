@@ -34,7 +34,7 @@ class App extends Component {
   onToggleItemCompleted = (id) => {
     this.setState({
       items: this.state.items.map(item =>
-        item._id === id ? { ...item, isCompleted: !item.isCompleted } : item
+        item._id === id ? { ...item, isCompleted: !item.isCompleted, completed: new Date() } : item
       )
     })
   }

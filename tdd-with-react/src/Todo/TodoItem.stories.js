@@ -34,3 +34,12 @@ storiesOf('TodoItem', module)
   .add('Editing', () => (
     renderTodoItemWithProps({ item: mockItem, editing: true })
   ))
+  .add('Completed', () => (
+    renderTodoItemWithProps({ item:
+      {
+        ...mockItem,
+        isCompleted: true,
+        completed: new Date()
+      }
+    })
+  ))
