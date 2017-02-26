@@ -4,7 +4,7 @@ import React from 'react'
 import TodoFooter from './TodoFooter'
 import TodoItem from './TodoItem'
 
-export default class TodoBoardContainer extends React.Component {
+export const TodoBoardContainer = (TodoBoardComponent) => class extends React.Component {
   static propTypes = {
     items: React.PropTypes.arrayOf(React.PropTypes.shape({
       _id: React.PropTypes.string,
@@ -21,7 +21,8 @@ export default class TodoBoardContainer extends React.Component {
     super(props)
     this.state = {
       inputValue: '',
-      editingItemId: null
+      editingItemId: null,
+      filter: 'all'
     }
   }
 
@@ -55,7 +56,7 @@ export default class TodoBoardContainer extends React.Component {
 
   render () {
     return (
-      <TodoBoard
+      <TodoBoardComponent
         items={this.props.items}
         inputValue={this.state.inputValue}
         onAddItem={this.props.onAddItem}
@@ -67,6 +68,7 @@ export default class TodoBoardContainer extends React.Component {
         onToggleItemCompleted={this.props.onToggleItemCompleted}
         onEditCompleted={this.onEditItem}
         onDestroy={this.props.onDestroy}
+        filter={this.state.filter}
       />
     )
   }
@@ -89,9 +91,19 @@ export class TodoBoard extends React.Component {
     onDestroy: React.PropTypes.func
   }
 
+  static defaultProps = {
+    filter: 'all'
+  }
+
+  filterItems = () => {
+    const { filter } = this.props
+    if (filter === 'all') return this.props.items
+    return this.props.items.filter(item => item.isCompleted === (filter === 'completed'))
+  }
+
   renderItems = () => {
     if (!this.props.items) return null
-    return this.props.items.map(item => (
+    return this.filterItems().map(item => (
       <TodoItem
         key={item._id}
         item={item}
@@ -105,6 +117,7 @@ export class TodoBoard extends React.Component {
   }
 
   render () {
+    const length = this.props.items ? this.props.items.length : 0
     return (
       <div className='todoapp'>
         <header className="header">
@@ -121,9 +134,11 @@ export class TodoBoard extends React.Component {
           <ul className='todo-list'>
             {this.renderItems()}
           </ul>
-          <TodoFooter count={this.props.items.length} filter={this.props.filter} />
+          <TodoFooter count={length} filter={this.props.filter} />
         </header>
       </div>
     )
   }
 }
+
+export default TodoBoardContainer(TodoBoard)
