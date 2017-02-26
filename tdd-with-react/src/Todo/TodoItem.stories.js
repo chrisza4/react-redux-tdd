@@ -43,3 +43,11 @@ storiesOf('TodoItem', module)
       }
     })
   ))
+  .add('Important', () => (
+    renderTodoItemWithProps({ item:
+      {
+        ...mockItem,
+        important: true
+      }
+    })
+  ))

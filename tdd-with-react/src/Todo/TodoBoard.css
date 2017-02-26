@@ -205,6 +205,9 @@ label[for='toggle-all'] {
 	text-decoration: line-through;
 }
 
+.todo-list li.important label {
+	color: red;
+}
 .todo-list li .destroy {
 	display: none;
 	position: absolute;

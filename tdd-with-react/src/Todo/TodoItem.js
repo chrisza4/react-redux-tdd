@@ -81,6 +81,7 @@ export class TodoItem extends React.Component {
     const className = classNames({
       completed: this.props.item.isCompleted,
       editing: this.props.editing,
+      important: this.props.item.important
     })
 
     return (
