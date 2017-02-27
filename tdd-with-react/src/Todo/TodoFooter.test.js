@@ -35,4 +35,8 @@ describe('TodoBoardContainer testing 1', () => {
     expect(wrapper.find('.ax-active.selected')).toHaveLength(0)
     expect(wrapper.find('.ax-completed.selected')).toHaveLength(1)
   })
+
+  it.skip('when count is 0, should disabled clear completed button', () => {
+
+  })
 })
