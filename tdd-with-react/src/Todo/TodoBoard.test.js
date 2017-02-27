@@ -1,5 +1,6 @@
 import React from 'react'
 import TodoBoard from './TodoBoard'
+import TodoItem from './TodoItem'
 import { mount } from 'enzyme'
 
 describe('TodoBoardContainer testing 1', () => {
@@ -18,7 +19,7 @@ describe('TodoBoardContainer testing 1', () => {
       />
     )
     wrapper.setState({ filter: 'completed' })
-    expect(wrapper.find('.ax-todo-item')).toHaveLength(3)
+    expect(wrapper.find(TodoItem)).toHaveLength(3)
   })
 
   it('when filter all, should render every items', () => {
@@ -36,7 +37,7 @@ describe('TodoBoardContainer testing 1', () => {
       />
     )
     wrapper.setState({ filter: 'all' })
-    expect(wrapper.find('.ax-todo-item')).toHaveLength(5)
+    expect(wrapper.find(TodoItem)).toHaveLength(5)
   })
 
   it.skip('when filter completed, should render only completed item', () => {

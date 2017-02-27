@@ -6,6 +6,11 @@ const propTypes = {
   count: React.PropTypes.number.isRequired,
   onClearCompleted: React.PropTypes.func,
 }
+const defaultProps = {
+  filter: 'all',
+  count: 0,
+  onClearCompleted: () => { },
+}
 
 const TodoFooter = props => (
   <footer className="footer">
@@ -15,20 +20,22 @@ const TodoFooter = props => (
     <ul className="filters">
       <li>
         <span
-          className={classNames({selected: props.filter === 'all'})}>
+          className={classNames('ax-all', {
+            selected: props.filter === 'all'
+          })}>
             All
         </span>
       </li>
       {' '}
       <li>
         <span
-          className={classNames({selected: props.filter === 'active'})}>
+          className={classNames('ax-active', {selected: props.filter === 'active'})}>
             Active
         </span>
       </li>
       {' '}
       <li>
-        <span className={classNames({selected: props.filter === 'completed'})}>
+        <span className={classNames('ax-completed', {selected: props.filter === 'completed'})}>
             Completed
         </span>
       </li>
@@ -42,5 +49,6 @@ const TodoFooter = props => (
 )
 
 TodoFooter.propTypes = propTypes
+TodoFooter.defaultProps = defaultProps
 
 export default TodoFooter
