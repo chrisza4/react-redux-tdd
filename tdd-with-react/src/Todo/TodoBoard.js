@@ -15,6 +15,7 @@ export const TodoBoardContainer = (TodoBoardComponent) => class extends React.Co
     onToggleItemCompleted: React.PropTypes.func,
     onEditItem: React.PropTypes.func,
     onDestroy: React.PropTypes.func,
+    onClearCompleted: React.PropTypes.func,
   }
 
   constructor (props) {
@@ -47,6 +48,8 @@ export const TodoBoardContainer = (TodoBoardComponent) => class extends React.Co
     })
   }
 
+  onToggleFilter = (newFilter) => this.setState({ filter: newFilter })
+
   onCloseEdit = () => this.setState({ editingItemId: null })
 
   onEditItem = (id, title) => {
@@ -68,6 +71,8 @@ export const TodoBoardContainer = (TodoBoardComponent) => class extends React.Co
         onToggleItemCompleted={this.props.onToggleItemCompleted}
         onEditCompleted={this.onEditItem}
         onDestroy={this.props.onDestroy}
+        onClearCompleted={this.props.onClearCompleted}
+        onToggleFilter={this.onToggleFilter}
         filter={this.state.filter}
       />
     )
@@ -88,7 +93,9 @@ export class TodoBoard extends React.Component {
     onCloseEdit: React.PropTypes.func,
     onToggleItemCompleted: React.PropTypes.func,
     onEditCompleted: React.PropTypes.func,
-    onDestroy: React.PropTypes.func
+    onDestroy: React.PropTypes.func,
+    onClearCompleted: React.PropTypes.func,
+    onToggleFilter: React.PropTypes.func,
   }
 
   static defaultProps = {
@@ -134,7 +141,12 @@ export class TodoBoard extends React.Component {
           <ul className='todo-list'>
             {this.renderItems()}
           </ul>
-          <TodoFooter count={length} filter={this.props.filter} />
+          <TodoFooter
+            count={length}
+            filter={this.props.filter}
+            onClearCompleted={this.props.onClearCompleted}
+            onToggleFilter={this.props.onToggleFilter}
+          />
         </header>
       </div>
     )

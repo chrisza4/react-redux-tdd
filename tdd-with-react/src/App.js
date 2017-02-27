@@ -45,6 +45,10 @@ class App extends Component {
     })
   }
 
+  onClearCompleted = () => this.setState({
+    items: this.state.items.filter(d => !d.isCompleted)
+  })
+
   render() {
     return (
       <div className="App">
@@ -54,6 +58,7 @@ class App extends Component {
           onEditItem={this.onEditItem}
           onToggleItemCompleted={this.onToggleItemCompleted}
           onDestroy={this.onDestroy}
+          onClearCompleted={this.onClearCompleted}
         />
       </div>
     );
