@@ -40,7 +40,11 @@ describe('TodoBoardContainer testing 1', () => {
     expect(wrapper.find(TodoItem)).toHaveLength(5)
   })
 
-  it.skip('when filter completed, should render only completed item', () => {
+  it.skip('when everything is active, should hide filter completed button', () => {
+    // TODO: Implement this
+  })
+
+  it.skip('when everything is completed, should hide filter active button', () => {
     // TODO: Implement this
   })
 })
