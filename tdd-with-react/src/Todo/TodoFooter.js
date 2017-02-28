@@ -55,7 +55,8 @@ const TodoFooter = props => {
       </ul>
       <button
         className="clear-completed"
-        onClick={props.onClearCompleted}>
+        onClick={props.onClearCompleted}
+      >
           Clear completed
       </button>
     </footer>
