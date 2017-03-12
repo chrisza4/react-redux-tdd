@@ -1,8 +1,12 @@
 import './TodoBoard.css'
 
+import * as TodoActions from './actionCreators/todoActions'
+
 import React from 'react'
 import TodoFooter from './TodoFooter'
 import TodoItem from './TodoItem'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 export const TodoBoardContainer = (TodoBoardComponent) => class extends React.Component {
   static propTypes = {
@@ -153,4 +157,19 @@ export class TodoBoard extends React.Component {
   }
 }
 
-export default TodoBoardContainer(TodoBoard)
+
+
+export default connect(
+  (state) => ({
+    items: state.todoData
+  }),
+  dispatch => {
+    const boundActions = bindActionCreators(TodoActions, dispatch)
+    return boundActions
+    // onAddItem: (...args) => dispatch(TodoActions.onAddItem(args)),
+    // onToggleItemCompleted: (...args) => dispatch(TodoActions.onToggleItemCompleted(args)),
+    // onEditItem: (...args) => dispatch(TodoActions.onEditItem(args)),
+    // onDestroy: (...args) => dispatch(TodoActions.onDestroy(args)),
+    // onClearCompleted: (...args) => dispatch(TodoActions.onClearCompleted(args)),
+  }
+)(TodoBoardContainer(TodoBoard))
