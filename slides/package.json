@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "sinon": "^2.1.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
+  },
+  "name": "slides",
+  "scripts": {
+    "test": "tape -r ./*.spec.js | tap-spec"
+  }
+}
