@@ -2,7 +2,7 @@ import React from 'react'
 import TodoFooter from './TodoFooter'
 import { shallow } from 'enzyme'
 
-describe('TodoBoardContainer testing 1', () => {
+describe('TodoFooter testing', () => {
   it('when filter by all, should render selected all', () => {
     const wrapper = shallow(
       <TodoFooter
@@ -36,7 +36,7 @@ describe('TodoBoardContainer testing 1', () => {
     expect(wrapper.find('.ax-completed.selected')).toHaveLength(1)
   })
 
-  it.skip('when count is 0, should disabled clear completed button', () => {
+  it.skip('when count is 0, should hide clear completed button', () => {
 
   })
 })
