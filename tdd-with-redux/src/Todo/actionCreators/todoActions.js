@@ -1,4 +1,6 @@
-const actionTypes = {
+import uuid from 'uuid'
+
+export const actionTypes = {
   ADD_TODO: 'ADD_TODO',
   EDIT_TODO: 'EDIT_TODO',
   TOGGLE_TODO: 'TOGGLE_TODO',
@@ -6,11 +8,11 @@ const actionTypes = {
   CLEAR_COMPLETED: 'CLEAR_COMPLETED'
 }
 
-export function onAddItem (title) {
+export function onAddItem (title, id = uuid.v4()) {
   return {
     type: actionTypes.ADD_TODO,
     data: {
-      title
+      id, title
     }
   }
 }
