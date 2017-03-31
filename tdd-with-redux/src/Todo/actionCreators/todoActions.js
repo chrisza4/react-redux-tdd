@@ -1,3 +1,4 @@
+import { post } from '../../mockPost'
 import uuid from 'uuid'
 
 export const actionTypes = {
@@ -5,15 +6,23 @@ export const actionTypes = {
   EDIT_TODO: 'EDIT_TODO',
   TOGGLE_TODO: 'TOGGLE_TODO',
   DESTROY_TODO: 'DESTROY_TODO',
-  CLEAR_COMPLETED: 'CLEAR_COMPLETED'
+  CLEAR_COMPLETED: 'CLEAR_COMPLETED',
+  SAVING_TODO: 'SAVING_TODO'
 }
 
-export function onAddItem (title, id = uuid.v4()) {
-  return {
-    type: actionTypes.ADD_TODO,
-    data: {
-      id, title
-    }
+export function onAddItem (title, id = uuid.v4(), deps) {
+  deps = Object.assign({ post }, deps)
+  return dispatch => {
+    dispatch({ type: actionTypes.SAVING_TODO })
+    deps.post('todo', { title, id }, (res) => {
+      dispatch({
+        type: actionTypes.ADD_TODO,
+        data: {
+          id, title
+        }
+      })
+    })
+
   }
 }
 

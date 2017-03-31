@@ -1,12 +1,13 @@
 import './App.css';
 
 import React, { Component } from 'react'
-import { combineReducers, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 
 import { Provider } from 'react-redux'
 import TodoBoard from './Todo/TodoBoard'
 import Uuid from 'uuid'
 import dataSet from './dataSource'
+import thunk from 'redux-thunk'
 import todoReducer from './Todo/reducer/todoReducers'
 
 const createItem = (title) => (
@@ -19,53 +20,18 @@ const reducers = combineReducers({
 
 const store = createStore(
   reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk)
 )
 
 class App extends Component {
-
-  // onAddItem = (title) => {
-  //   this.setState({
-  //     items: [ ...this.state.items, createItem(title) ]
-  //   })
-  // }
-
-  // onEditItem = (id, title) => {
-  //   this.setState({
-  //     items: this.state.items.map(item => item._id === id ? { ...item, title } : item)
-  //   })
-  // }
-
-  // onToggleItemCompleted = (id) => {
-  //   this.setState({
-  //     items: this.state.items.map(item =>
-  //       item._id === id ? { ...item, isCompleted: !item.isCompleted } : item
-  //     )
-  //   })
-  // }
-
-  // onDestroy = (id) => {
-  //   this.setState({
-  //     items: this.state.items.filter(item => item._id !== id)
-  //   })
-  // }
-
-  // onClearCompleted = () => this.setState({
-  //   items: this.state.items.filter(d => !d.isCompleted)
-  // })
 
   render() {
     console.log(TodoBoard)
     return (
       <Provider store={store}>
         <div className="App">
-          <TodoBoard
-            // onAddItem={this.onAddItem}
-            // onEditItem={this.onEditItem}
-            // onToggleItemCompleted={this.onToggleItemCompleted}
-            // onDestroy={this.onDestroy}
-            // onClearCompleted={this.onClearCompleted}
-          />
+          <TodoBoard />
         </div>
       </Provider>
     );
