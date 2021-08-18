@@ -7,7 +7,7 @@ console.log('State:', store.getState())
 
 store.dispatch({
   type: 'SOMEACTION',
-  data: 'fuck world'
+  data: 'my world'
 })
 
 console.log('State:', store.getState())
