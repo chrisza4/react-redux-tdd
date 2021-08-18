@@ -19,13 +19,14 @@ const reducer = (state, action) => {
 
 const store = Redux.createStore(reducer, [ ])
 
-store.dispatch({
+const addTodoAction = {
   type: 'ADD',
   data: {
     id: 'data1',
     title: 'fuck world'
   }
-})
+}
+store.dispatch(addTodoAction)
 
 console.log('State1:', store.getState())
 
